@@ -1,0 +1,23 @@
+import urllib2
+
+def scrape(url = None):
+    
+    url = url or 'http://pad.wikia.com/wiki/004'
+    
+    proxyHost='rrwebproxy.bankofamerica.com'
+    proxyPort=8080
+    
+    httpProxy = 'http://{user}:{password}@{host}:{port}'.format(
+            user='nbkwvqb', password='*******', host=proxyHost, port=proxyPort
+			# don't type the password in, leave as ****
+        )
+    proxyHandler = urllib2.ProxyHandler({'http': httpProxy, 'https' : httpProxy})
+    opener = urllib2.build_opener(proxyHandler, urllib2.HTTPHandler)
+    urllib2.install_opener(opener)
+    
+    response = opener.open(url).read()
+    
+    return response
+
+
+print scrape("http://learncodethehardway.org/words.txt")
